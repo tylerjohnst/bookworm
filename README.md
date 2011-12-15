@@ -18,4 +18,4 @@ Your wiggling friend in ISBN conversions.
 
 # Copyright
 
-Copyright (c) 2011 Jason L Perry. See LICENSE for details.
+Copyright (c) 2011 Tyler Johnston. See LICENSE for details.
