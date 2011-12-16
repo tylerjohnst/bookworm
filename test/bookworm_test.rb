@@ -10,21 +10,21 @@ class BookwormTest < Test::Unit::TestCase
     @bookworm.scrub('9780976805427999990')
   end
 
-  def test_should_create_from_used_and_store_as_new
-    assert_equal '9780976805427', Bookworm.new("2900976805426").isbn
-  end
-
   def test_should_calculate_thirteen_check_digit
-    assert_equal "6", @bookworm.thirteen_check_digit('290097680542')
+    assert_equal "6", @bookworm.thirteen_check_digit('2900976805426')
   end
 
   def test_should_calculate_ten_check_digit
-    assert_equal "1", @bookworm.ten_check_digit("097680542")
+    assert_equal "1", @bookworm.ten_check_digit("0976805421")
   end
 
-  def test_should_convert_from_ten_to_thirteen
+  def test_should_create_from_used
+    assert_equal '9780976805427', Bookworm.new("2900976805426").isbn
+  end
+  
+  def test_should_convert_from_ten
     assert_equal '9780976805427', Bookworm.new("0976805421").as_new
-    assert_equal '', Bookworm.new("0073324922").as_new
+    assert_equal '9780073324920', Bookworm.new("0073324922").as_new
   end
 
   def test_should_convert_to_new

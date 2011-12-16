@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "bookworm"
-  s.version     = "0.1.1"
+  s.version     = "0.1.2"
   s.authors     = ["Tyler Johnston"]
   s.email       = ["tylerjohnst@gmail.com"]
   s.homepage    = "http://github.com/tylerjohnst/bookworm"

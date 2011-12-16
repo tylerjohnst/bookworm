@@ -45,8 +45,7 @@ class Bookworm
   end
 
   def to_thirteen(identifier)
-    identifier = strip_last(identifier)
-    identifier + thirteen_check_digit(identifier)
+    thirteen_strip(identifier) + thirteen_check_digit(identifier)
   end
 
   def scrub(string)
@@ -54,21 +53,29 @@ class Bookworm
     result ? result[1] : nil
   end
 
-  def thirteen_check_digit(identifier)
-    sum = 0
+  def thirteen_check_digit(identifier=isbn)
+    identifier, sum = identifier.rjust(13,"978")[/(.+)\w/,1], 0
+
     12.times do |index|
       digit = identifier[index].to_i
       sum += index.even? ? digit : digit * 3
     end
+
     checksum = (10 - sum % 10)
     checksum == 10 ? '0' : checksum.to_s
   end
 
-  def ten_check_digit(identifier)
+  def thirteen_strip(identifier)
+    identifier.rjust(13,"978")[0..-2]
+  end
+
+  def ten_check_digit(identifier=isbn)
     sum = 0
+    
     9.times do |index|
       sum += (10 - index) * identifier[index].to_i
     end
+
     checksum = 11 - sum % 11
 
     case checksum
@@ -79,10 +86,10 @@ class Bookworm
   end
 
   def is_valid?
-    !!(isbn && isbn[-1] == original[-1])
-  end
-
-  def strip_last(string)
-    string.rjust(13,"978")[/(.+)\w/,1]
+    case original
+    when /^\d{13}/ then original[12] == thirteen_check_digit(original)
+    when /^\d{10}/ then original[9] == ten_check_digit(original)
+    else false
+    end
   end
 end
