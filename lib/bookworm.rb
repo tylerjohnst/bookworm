@@ -60,7 +60,8 @@ class Bookworm
       digit = identifier[index].to_i
       sum += index.even? ? digit : digit * 3
     end
-    (10 - sum % 10).to_s
+    checksum = (10 - sum % 10)
+    checksum == 10 ? '0' : checksum.to_s
   end
 
   def ten_check_digit(identifier)
@@ -69,7 +70,12 @@ class Bookworm
       sum += (10 - index) * identifier[index].to_i
     end
     checksum = 11 - sum % 11
-    checksum == 10 ? 'X' : checksum.to_s
+
+    case checksum
+    when 10 then "X"
+    when 11 then "0"
+    else checksum.to_s
+    end
   end
 
   def is_valid?

@@ -24,6 +24,7 @@ class BookwormTest < Test::Unit::TestCase
 
   def test_should_convert_from_ten_to_thirteen
     assert_equal '9780976805427', Bookworm.new("0976805421").as_new
+    assert_equal '', Bookworm.new("0073324922").as_new
   end
 
   def test_should_convert_to_new
